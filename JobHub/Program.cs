@@ -1,4 +1,5 @@
 using JobHub.Data;
+using JobHub.DataAccess;
 using JobHub.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -17,6 +18,7 @@ builder.Services.AddIdentityCore<Applicant>().
     AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddIdentityCore<Employer>().
     AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 var app = builder.Build();
 
 app.UseStaticFiles();
