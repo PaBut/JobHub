@@ -21,9 +21,9 @@ namespace JobHub.DataAccess
             JobApplicationRepo = new Repository<JobApplication>(_context);
         }
 
-        public void SaveChanges()
+        public async Task SaveChangesAsync()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

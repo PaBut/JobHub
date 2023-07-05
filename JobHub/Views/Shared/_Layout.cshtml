@@ -31,23 +31,16 @@
                         <a class="nav-link" href="#">About</a>
                     </li>
                 </ul>
-                <form class="d-flex">
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Pricing</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">About</a>
-                        </li>
-
-                    </ul>
-
-                </form>
+                <div class="d-flex">
+                    <partial name="_LoggedInPartial" />
+                </div>
             </div>
         </div>
     </nav>
     <div class="container">
         @RenderBody()
     </div>
+    <script src="~/lib//bootstrap/js/bootstrap.min.js"></script>
+    @await RenderSectionAsync("Scripts", required:false)
 </body>
 </html>

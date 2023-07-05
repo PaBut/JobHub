@@ -12,7 +12,7 @@ namespace JobHub.Models
         public string? Name { get; set; }
 
         [Required]
-        public byte[]? Date { get; set; }
+        public byte[]? Data { get; set; }
 
         [Required]
         [StringLength(10)]

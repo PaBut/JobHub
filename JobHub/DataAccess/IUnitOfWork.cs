@@ -9,6 +9,6 @@ namespace JobHub.DataAccess
         public IRepository<Job> JobRepo { get; }
         public IRepository<JobApplication> JobApplicationRepo { get; }
 
-        public void SaveChanges();
+        public Task SaveChangesAsync();
     }
 }

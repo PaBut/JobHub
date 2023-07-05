@@ -1,0 +1,19 @@
+﻿@using JobHub.DTO
+@model LogInEmployerModelView
+
+<h2 class="text-primary mt-2">Log In Employer</h2>
+
+<form class="mt-2" method="post">
+    <label class="form-label" asp-for=Email></label>
+    <input class="form-control" asp-for="Email" />
+    <span asp-validation-for="Email" class="text-danger"></span>
+
+    <label class="form-label" asp-for=Password></label>
+    <input class="form-control" asp-for="Password" />
+
+    <button class="btn btn-lg btn-success mt-2" type="submit">Log In</button>
+</form>
+
+@section Scripts{
+    <partial name="_ValidationPartial.cshtml" />
+}
