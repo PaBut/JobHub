@@ -1,0 +1,3 @@
+﻿@model FileModel
+
+<img src=@(Model == null ? "/images/defaultPP.jpg" : $"data:img/{Model.Extention};base64,{Convert.ToBase64String(Model.Data)}") class="d-inline rounded-circle img-fluid fixed-size-image" style="max-width:3%;" />

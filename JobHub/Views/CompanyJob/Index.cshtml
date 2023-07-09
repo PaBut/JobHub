@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Job>
+
+@foreach (Job job in Model)
+{
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">@job.Name</h4>
+            <h6 class="card-subtitle mb-2 text-muted">@job.Region, @job.City</h6>
+            @*<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>*@
+            <a href="#" class="card-link">See applicants</a>
+            <a asp-action="AddUpdateJob" asp-controller="CompanyJob" asp-route-id="@job.Id" class="card-link">Update</a>
+            <a href="javascript:void(0)" onclick="delete('@job.Id')" data-jobid="@job.Id" class="card-link delete-link">Delete</a>
+            <a href="#" class="card-link">Found Employee</a>
+        </div>
+    </div>
+}
+
+@section Scripts{
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+        asp-fallback-test="window.jQuery"
+        asp-fallback-src="/lib/jquery/jquery.min.js"></script>
+<script>
+    $(document).on('click', '.delete-link', function() {
+        var id = $(this).data('jobid');
+        $.ajax({
+            url: '/CompanyJob/Delete/' + id,
+            type: 'DELETE',
+            success: function(data) {
+                location.reload();
+            }
+        });
+    });
+</script>
+
+}

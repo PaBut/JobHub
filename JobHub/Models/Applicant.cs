@@ -8,8 +8,8 @@ namespace JobHub.Models
     public class Applicant : IdentityUser
     {
         [Required]
-        [Display(Name = "Full Name")]
-        [RegularExpression("^[a-zA-Z.- ]*$", ErrorMessage = "Name must be in proper format")]
+        //[Display(Name = "Full Name")]
+        //[RegularExpression("^[a-zA-Z.- ]*$", ErrorMessage = "Name must be in proper format")]
         [StringLength(40)]
         public string? FullName { get; set; }
 

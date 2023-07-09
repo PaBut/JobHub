@@ -23,7 +23,8 @@ namespace JobHub.DataAccess
 
         public async Task SaveChangesAsync()
         {
-            await _context.SaveChangesAsync();
+            // TODO: Make call async (there's an issue calling SaveChangesAsync as for now)
+            _context.SaveChanges();
         }
     }
 }

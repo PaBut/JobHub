@@ -1,5 +1,6 @@
 ﻿using JobHub.Enums;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JobHub.Models
 {
@@ -10,6 +11,10 @@ namespace JobHub.Models
         [Required]
         [StringLength(50)]
         public string? Name { get; set; }
+
+        public string? EmployerId { get; set; }
+        [ForeignKey(nameof(EmployerId))]
+        public Employer? Employer { get; set; }
 
         public DateTime PostDate { get; } = DateTime.Now;
         [Required]

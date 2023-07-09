@@ -1,5 +1,6 @@
 ﻿using JobHub.Contracts;
 using JobHub.DTO;
+using JobHub.Enums;
 using JobHub.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -50,7 +51,7 @@ namespace JobHub.Controllers
                 var result = await _userManager.CreateAsync(user, registerEmployerMV.Password);
                 if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(user, SD.EmployerRole);
+                    await _userManager.AddToRoleAsync(user, Enum.GetName(RolesEnum.Employer));
                     await _signInManager.PasswordSignInAsync(user, registerEmployerMV.Password, true, false);
                     return RedirectToAction(nameof(HomeController.Index), "Home");
                 }

@@ -23,11 +23,16 @@ namespace JobHub.DataAccess.Repo
             _dbSet.Remove(entity);
         }
 
-        public List<T> GetAll(string? includedEntities = null)
+        public IEnumerable<T> ExecuteCustomQuery(Func<IQueryable<T>, IQueryable<T>> func)
+        {
+            return func(_dbSet).AsEnumerable();
+        }
+
+        public IEnumerable<T> GetAll(string? includedEntities = null)
         {
             IQueryable<T> query = _dbSet;
             query = IncludeEntities(query, includedEntities);
-            return query.ToList();
+            return query.AsEnumerable();
         }
 
         public T GetFirstOrDefault(Expression<Func<T, bool>> func, string? includedEntities = null)
@@ -38,12 +43,20 @@ namespace JobHub.DataAccess.Repo
 
         }
 
-        // @param entities - list of entities separated with comma to be included in query
-        public IQueryable<T> IncludeEntities(IQueryable<T> query, string entities)
+        public void Update(T entity)
         {
-            foreach(var ent in entities.Split(','))
+            _dbSet.Update(entity);
+        }
+
+        // @param entities - list of entities separated with comma to be included in query
+        IQueryable<T> IncludeEntities(IQueryable<T> query, string? entities)
+        {
+            if(entities != null)
             {
-                query = query.Include(ent);
+                foreach (var ent in entities.Split(','))
+                {
+                    query = query.Include(ent);
+                }
             }
             return query;
         }

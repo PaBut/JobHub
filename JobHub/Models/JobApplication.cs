@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using JobHub.Enums;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JobHub.Models
@@ -11,6 +12,8 @@ namespace JobHub.Models
         public Guid? JobId { get; set; }
         [ForeignKey(nameof(JobId))]
         public Job? Job { get; set; }
+
+        public ApplicationStatus Status { get; set; } = ApplicationStatus.Sent; 
 
         public string? ApplicantId { get; set; }
         [ForeignKey(nameof(ApplicantId))]

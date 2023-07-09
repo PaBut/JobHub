@@ -1,13 +1,6 @@
 using JobHub;
-using JobHub.Contracts;
-using JobHub.Data;
-using JobHub.DataAccess;
-using JobHub.Models;
-using JobHub.Services;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using JobHub.Enums;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,11 +31,11 @@ async Task AddRoles(WebApplication app)
     using (var scope = app.Services.CreateScope())
     {
         RoleManager<IdentityRole> roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-        if (!await roleManager.RoleExistsAsync(SD.AdminRole))
+        if (!await roleManager.RoleExistsAsync(Enum.GetName(RolesEnum.Admin)))
         {
-            await roleManager.CreateAsync(new IdentityRole(SD.AdminRole));
-            await roleManager.CreateAsync(new IdentityRole(SD.EmployerRole));
-            await roleManager.CreateAsync(new IdentityRole(SD.ApplicantRole));
+            await roleManager.CreateAsync(new IdentityRole(Enum.GetName(RolesEnum.Admin)));
+            await roleManager.CreateAsync(new IdentityRole(Enum.GetName(RolesEnum.Employer)));
+            await roleManager.CreateAsync(new IdentityRole(Enum.GetName(RolesEnum.Applicant)));
         }
     }
 }

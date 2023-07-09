@@ -4,6 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>319a4881-5f09-4c2c-bf18-7ccf9fc452d2</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,9 +17,12 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="7.0.8" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.14" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Applicant\Views\" />
     <Folder Include="wwwroot\lib\bootstrap\" />
   </ItemGroup>
 

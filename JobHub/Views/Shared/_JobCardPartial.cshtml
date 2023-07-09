@@ -1,0 +1,25 @@
+﻿@using JobHub
+@model Job
+
+<div class="card mb-2">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-9">
+                <a asp-action="JobDetails" asp-controller="Home" asp-route-id="@Model.Id" 
+                class="card-title text-decoration-none d-block" style="font-size: 1.5em;">@Model.Name</a>
+                <partial name="_PhotoDbPartial" model="Model.Employer.Photo" />
+                <h6 class="d-inline card-subtitle ml-3 mb-2 text-muted">@Model.Employer.CompanyName</h6>
+            </div>
+            <div class="col-3">
+                <i class="fa-solid fa-money-bills"></i>
+                <label class="card-text">@(Model.Wage)$</label>
+                <br />
+                <i class="fa-solid fa-clock"></i>
+                <label class="card-text">@Model.TimeType.ToString()</label>
+            </div>
+        </div>
+        <p class="card-text">@Model.Description.LimitString(500, "...")</p>
+        @*<a href="#" class="card-link">Card link</a>
+        <a href="#" class="card-link">Another link</a>*@
+    </div>
+</div>

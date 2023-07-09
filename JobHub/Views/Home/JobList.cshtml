@@ -1,0 +1,96 @@
+﻿@using JobHub.DTO
+@using JobHub
+@model PagingJobModel
+
+<form method="get">
+    <input hidden asp-for="PageIndex" />
+    <div class="input-group">
+        <input asp-for="Place" class="form-control" placeholder="City">
+        <input asp-for="JobName" class="form-control" placeholder="Job Name">
+        <div class="input-group-btn">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </div>
+    <div class="dropdown d-inline">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownTT" data-bs-toggle="dropdown" aria-expanded="false">
+            Select @Html.DisplayNameFor(m => m.TimeType)
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownTT">
+            @foreach(var entry in Model.TimeType)
+            {
+                <li>
+                    @*<input hidden asp-for="TimeType[i].Item1">
+                    <input class="form-check-input" type="checkbox" asp-for="TimeType[i].Item2" />
+                    <label class="form-check-label">@Model.TimeType[i].Item1.ToString()</label>*@
+                    @*@Html.TextBoxFor(e => e.TimeType[entry.Key], new {hidden = "true"})*@
+                    @Html.CheckBoxFor(e => e.TimeType[entry.Key], new {@class = "form-check-input"})
+                    <label class="form-check-label">@Html.DisplayFor(m => entry.Key)</label>
+                </li>
+            }
+        </ul>
+    </div>
+    <div class="dropdown d-inline">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownER" data-bs-toggle="dropdown" aria-expanded="false">
+            Select @Html.DisplayNameFor(m => m.EducationRequired)
+        </button>
+        <ul class="dropdown-menu ml-3" aria-labelledby="dropdownMenuButton">
+            @foreach(var entry in Model.EducationRequired)
+            {
+                <li>
+                    @Html.TextBoxFor(e => entry.Key, new {hidden = "true"})
+                    @Html.CheckBoxFor(e => e.EducationRequired[entry.Key], new {@class = "form-check-input"})
+                    <label class="form-check-label">@Html.DisplayFor(m => entry.Key)</label>
+                </li>
+            }
+        </ul>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="MinimumWage" class="form-control" id="floatingInput" placeholder="name@example.com" fdprocessedid="ahmlw" />
+        <label asp-for="MinimumWage" for="floatingInput"></label>
+    </div>
+    <label asp-for="SortOptions" class="d-inline form-label"></label>
+    <select asp-for="SortOptions" asp-items="ViewBag.SortOptions" class="form-select d-inline"></select>
+
+
+    <div style="padding: 10px 3%;">
+        @foreach (var job in Model.JobList)
+        {
+            <partial name="_JobCardPartial" model="job"/>
+        }
+    </div>
+
+
+    <ul class="pagination">
+        <li class="page-item @(Model.HasPreviousPage ? "" : "disabled" )">
+            <button onclick='setPage(@(Model.PageIndex - 1))' type="submit" class="page-link">&laquo;</button>
+        </li>
+
+        @for (int i = Model.PageIndex - 1; i > 0 && i >= Model.PageIndex - 2; i--)
+        {
+            <li class="page-item">
+                <button onclick='setPage(@i)' type="submit" class="page-link">@i</button>
+            </li>
+        }
+        <li class="page-item active">
+            <button type="submit" disabled class="page-link">@Model.PageIndex</button>
+        </li>
+
+        @for (int i = Model.PageIndex + 1; i <= Model.PageCount && i <= Model.PageIndex + 2; i++)
+        {
+            <li class="page-item">
+                <button onclick='setPage(@i)' type="submit" class="page-link">@i</button>
+            </li>
+        }
+        <li class="page-item @(Model.HasNextPage ? "" : "disabled" )">
+            <button type="submit" class="page-link" onclick='setPage(@(Model.PageIndex + 1))'>&raquo;</button>
+        </li>
+    </ul>
+</form>
+
+@section Scripts{
+<script>
+    function setPage(page){
+        document.getElementById('PageIndex').value = page;
+    }
+</script>
+}

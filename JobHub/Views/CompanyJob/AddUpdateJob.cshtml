@@ -1,7 +1,9 @@
 ﻿@model Job
 
-<h2 class="text-primary text-center pt-2">Add a Job</h2>
+<h2 class="text-primary text-center pt-2">@ViewBag.Method a Job</h2>
 <form method="post">
+    <input hidden asp-for="Id" />
+    <input hidden asp-for="EmployerId" />
     <div class="row">
         <div class="col-6">
             <label asp-for="Name" class="form-label"></label>
@@ -32,14 +34,14 @@
     <div class="row">
         <div class="col-6">
             <label asp-for="TimeType" class="form-label"></label>
-            <select asp-for="City" class="form-select" asp-items="ViewBag.JobTimeTypes">
+            <select asp-for="TimeType" class="form-select" asp-items="ViewBag.JobTimeTypes">
                 <option disabled selected>--Select Option--</option>
             </select>
             <span asp-validation-for="TimeType" class="text-danger"></span>
         </div>
         <div class="col-6">
             <label asp-for="EducationRequired" class="form-label"></label>
-            <select asp-for="City" class="form-select" asp-items="ViewBag.EducationTypes">
+            <select asp-for="EducationRequired" class="form-select" asp-items="ViewBag.EducationTypes">
                 <option disabled selected>--Select Option--</option>
             </select>
             <span asp-validation-for="EducationRequired" class="text-danger"></span>
@@ -49,10 +51,12 @@
 
     <label asp-for="Description"></label>
     <textarea asp-for="Description" class="form-control"></textarea>
-    <span asp-validation-for="Description"></span>
+    <span class="text-danger" asp-validation-for="Description"></span>
 
-    <button class="btn-success btn-lg btn mt-3" type="submit">Submit</button>
+    <button class="btn-success btn-lg btn mt-3" type="submit">@ViewBag.Method</button>
 
 </form>
 
-
+@section Scripts{
+    <partial name="_ValidationPartial.cshtml" />
+}

@@ -4,6 +4,7 @@
     {
         Sent,
         Approved,
+        Selected,
         Declined
     }
 }

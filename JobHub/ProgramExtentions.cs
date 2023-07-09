@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JobHub
 {
-    public static class ExtentionPragram
+    public static class ProgramExtentions
     {
         public static void ConfigureServices(this IServiceCollection services, IConfiguration configuration)
         {
@@ -68,6 +68,17 @@ namespace JobHub
             services.AddScoped<SignInManager<DefaultUser>, DefaultUserSignInManager>();
             services.AddScoped<SignInManager<Applicant>, ApplicantSignInManager>();
             services.AddScoped<SignInManager<Employer>, EmployerSignInManager>();
+        }
+
+        public static string LimitString(this string limitedString, int charCount, string limitingString)
+        {
+
+            string result = new string(limitedString.Take(charCount).ToArray());
+            if(limitedString.Length > charCount)
+            {
+                result += limitingString;
+            }
+            return result;
         }
     }
 }
