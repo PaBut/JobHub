@@ -1,21 +1,35 @@
-﻿<ul class="navbar-nav me-auto">
+﻿@using JobHub.Enums
+@using System.Security.Claims
+<ul class="navbar-nav me-auto">
     @if (User.Identity.IsAuthenticated)
     {
-        <li class="nav-item">
-            <a class="nav-link" asp-action="Index" asp-controller="Account">Account</a>
-        </li>
+        if (User.IsInRole(RolesEnum.Applicant.ToString()) ||
+        User.IsInRole(RolesEnum.Employer.ToString()))
+        {
+            <li class="nav-item">
+                <a class="nav-link" asp-area="@(User.FindFirst(ClaimTypes.Role).Value)" asp-action="Index" asp-controller="Account">Account</a>
+            </li>
+        }
         <li class="nav-item">
             <a class="nav-link" asp-action="LogOut" asp-controller="Account">Log Out</a>
         </li>
     }
     else
     {
+        <li class="nav-item dropdown">
+            @*<a class="nav-link" asp-action="Register" asp-controller="Account">Register</a>*@
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Register</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" asp-action="Register" asp-controller="Account" asp-area="Applicant">As Applicant</a>
+                <a class="dropdown-item" asp-action="Register" asp-controller="Account" asp-area="Employer">As Employer</a>
+            </div>
+        </li>
         <li class="nav-item">
             <a class="nav-link" asp-action="LogIn" asp-controller="Account">Log In</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" asp-action="Register" asp-controller="Account">Register</a>
-        </li>
     }
 </ul>
+
+
+@**@
 

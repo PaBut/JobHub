@@ -1,22 +1,54 @@
 ﻿
 <div class="container mt-4">
-    <form method="get" asp-action="JobList" class="form-inline">
-        <div class="input-group">
-            <input name="Place" type="text" class="form-control" placeholder="City">
-            <input name="JobName" type="text" class="form-control" placeholder="Job Name">
-            <div class="input-group-btn">
-                <button type="submit" class="btn btn-primary">Search</button>
+
+    <header class="hero-section d-flex align-items-center">
+        <div class="container text-center">
+            <h1 class="display-4">Find Your Dream Job</h1>
+            <p class="lead">Search and apply for jobs in your desired field.</p>
+                <form method="get" asp-action="JobList">
+                    <div class="input-group mb-3">
+                        <input name="Place" type="text" class="form-control" placeholder="City">
+                        <input name="JobName" type="text" class="form-control" placeholder="Job Name">
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </div>
+                    </div>
+                </form>
+        </div>
+    </header>
+
+
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card highlight-card">
+                        <div class="card-body">
+                            <i class="fas fa-search fa-3x mb-3"></i>
+                            <h5>Find Your Dream Job</h5>
+                            <p>Search and apply for jobs in your desired field.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card highlight-card">
+                        <div class="card-body">
+                            <i class="fas fa-briefcase fa-3x mb-3"></i>
+                            <h5>Post a Job</h5>
+                            <p>Employers can post job openings to find the right candidates.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card highlight-card">
+                        <div class="card-body">
+                            <i class="fas fa-check-circle fa-3x mb-3"></i>
+                            <h5>My Applications</h5>
+                            <p>Keep track of your job applications and their status.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-       
-    </form>
+    </section>
 </div>
-
-
-
-
-<footer class="footer bg-light py-4">
-    <div class="container text-center">
-        <span>&copy; 2023 Your Website</span>
-    </div>
-</footer>

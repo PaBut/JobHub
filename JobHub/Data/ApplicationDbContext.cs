@@ -11,7 +11,6 @@ namespace JobHub.Data
 
         }
         public DbSet<Job> Jobs { get; set; }
-        public DbSet<DefaultUser> Users { get; set; }
         public DbSet<Applicant> Applicants { get; set; }
         public DbSet<Employer> Employers { get; set; }
         public DbSet<JobApplication> JobApplications { get; set; }

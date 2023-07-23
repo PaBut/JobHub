@@ -24,7 +24,7 @@
                     <label class="form-check-label">@Model.TimeType[i].Item1.ToString()</label>*@
                     @*@Html.TextBoxFor(e => e.TimeType[entry.Key], new {hidden = "true"})*@
                     @Html.CheckBoxFor(e => e.TimeType[entry.Key], new {@class = "form-check-input"})
-                    <label class="form-check-label">@Html.DisplayFor(m => entry.Key)</label>
+                    <label class="form-check-label">entry.Key.GetDisplayValueName()</label>
                 </li>
             }
         </ul>
@@ -37,9 +37,9 @@
             @foreach(var entry in Model.EducationRequired)
             {
                 <li>
-                    @Html.TextBoxFor(e => entry.Key, new {hidden = "true"})
+                    @*Html.TextBoxFor(e => entry.Key, new {hidden = "true"})*@
                     @Html.CheckBoxFor(e => e.EducationRequired[entry.Key], new {@class = "form-check-input"})
-                    <label class="form-check-label">@Html.DisplayFor(m => entry.Key)</label>
+                    <label class="form-check-label">@entry.Key.GetDisplayValueName()</label>
                 </li>
             }
         </ul>
@@ -53,6 +53,10 @@
 
 
     <div style="padding: 10px 3%;">
+        @if(Model.JobList.Count == 0)
+        {
+            <h2 class="text-center text-info">Nothing was found</h2>
+        }
         @foreach (var job in Model.JobList)
         {
             <partial name="_JobCardPartial" model="job"/>

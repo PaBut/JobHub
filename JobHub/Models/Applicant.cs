@@ -8,8 +8,6 @@ namespace JobHub.Models
     public class Applicant : IdentityUser
     {
         [Required]
-        //[Display(Name = "Full Name")]
-        //[RegularExpression("^[a-zA-Z.- ]*$", ErrorMessage = "Name must be in proper format")]
         [StringLength(40)]
         public string? FullName { get; set; }
 
@@ -18,7 +16,7 @@ namespace JobHub.Models
         public DateTime? Birthday { get; set; }
 
         [NotMapped]
-        public int? Age { get => Birthday.Value.Year - DateTime.Now.Year; }
+        public int? Age { get => DateTime.Now.Year - Birthday.Value.Year; }
 
         public EducationType? EducationType { get; set; }
 

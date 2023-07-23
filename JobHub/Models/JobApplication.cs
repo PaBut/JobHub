@@ -21,7 +21,7 @@ namespace JobHub.Models
 
         public string? EmployerId { get; set; }
         [ForeignKey(nameof(EmployerId))]
-        public Applicant? Employer { get; set; }
+        public Employer? Employer { get; set; }
 
         public Guid? CVId { get; set; }
         [ForeignKey(nameof(CVId))]

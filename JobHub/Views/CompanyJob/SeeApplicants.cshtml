@@ -1,0 +1,79 @@
+﻿@using JobHub.DTO
+@using JobHub
+@model SeeApplicantsModelView
+@{
+    int i = 0;
+}
+@foreach (var application in Model.ApplicationsList)
+{
+    <div class="card text-white mb-3">
+        <div class="card-body">
+            <h4 class="card-title">@application.Applicant.FullName</h4>
+            <div class="row">
+                <div class="col-4">
+                    <h6 class="card-subtitle mb-2 text-muted">@application.Applicant.Age y.o</h6>
+                </div>
+                <div class="col-4">
+                    <h6 class="card-subtitle mb-2 text-muted">@application.Applicant.EducationType.Value.GetDisplayValueName()</h6>
+                </div>
+            </div>
+            <p class="card-text">@application.Applicant.About</p>
+            @if (application.AdditionalMessage != null)
+            {
+                <p class="card-text">Message: @application.AdditionalMessage</p>
+            }
+            <a asp-action="GetResume" asp-controller="Resume" asp-route-id="@application.CVId" class="card-link">CV</a>
+            <a class="card-link reply-hidden" data-bs-toggle="collapse" href=@($"#multiCollapse{i}") role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
+                <i class="fa-solid fa-arrow-down"></i> Reply
+            </a>
+            <div class="row">
+                <div class="col">
+                    <div class="collapse multi-collapse" id=@($"multiCollapse{i++}")>
+                        @if (application.Status == JobHub.Enums.ApplicationStatus.Sent)
+                        {
+                            <form method="post">
+                                <input hidden asp-for="ApplicationId" value="@application.Id">
+                                <input hidden asp-for="JobId">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" asp-for="IsApproved">
+                                    <label class="form-check-label" for="flexSwitchCheckDefault" asp-for="IsApproved"></label>
+                                </div>
+                                <label asp-for="Reply" class="form-label"></label>
+                                <textarea asp-for="Reply" class="form-control"></textarea>
+                                <button type="submit" class="btn btn-success">Send</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <div class="form-check form-switch">
+                                <input disabled class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" asp-for="IsApproved">
+                                <label class="form-check-label" for="flexSwitchCheckDefault" asp-for="IsApproved"></label>
+                            </div>
+
+                            <p class="card-text">Your reply: @application.CompanyReply</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts{
+<script>
+     document.addEventListener("click", function(event) {
+          var target = event.target;
+
+          if (target.classList.contains("reply-hidden")) {
+            target.innerHTML = '<i class="fa-solid fa-arrow-up"></i> Hide';
+            target.classList.remove("reply-hidden");
+            target.classList.add("reply-shown");
+          } else if (target.classList.contains("reply-shown")) {
+            target.innerHTML = '<i class="fa-solid fa-arrow-down"></i> Reply';
+            target.classList.remove("reply-shown");
+            target.classList.add("reply-hidden");
+          }
+    });
+
+</script>
+}

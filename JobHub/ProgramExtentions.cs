@@ -4,7 +4,9 @@ using JobHub.DataAccess;
 using JobHub.Models;
 using JobHub.Services;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace JobHub
 {
@@ -18,7 +20,7 @@ namespace JobHub
             {
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             });
-            services.AddIdentityCore<DefaultUser>().
+            services.AddIdentityCore<IdentityUser>().
                 AddRoles<IdentityRole>().
                 AddDefaultTokenProviders().
                 AddEntityFrameworkStores<ApplicationDbContext>();
@@ -65,9 +67,10 @@ namespace JobHub
             services.AddHttpContextAccessor();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IFileDbUploader, FileDbUploader>();
-            services.AddScoped<SignInManager<DefaultUser>, DefaultUserSignInManager>();
+            services.AddScoped<SignInManager<IdentityUser>, DefaultUserSignInManager>();
             services.AddScoped<SignInManager<Applicant>, ApplicantSignInManager>();
             services.AddScoped<SignInManager<Employer>, EmployerSignInManager>();
+            services.AddScoped<IEnumConverter, EnumConverter>();
         }
 
         public static string LimitString(this string limitedString, int charCount, string limitingString)
@@ -79,6 +82,15 @@ namespace JobHub
                 result += limitingString;
             }
             return result;
+        }
+
+        public static string GetDisplayValueName<T>(this T enumElement) where T : Enum
+        {
+            DisplayAttribute attribute = enumElement.GetType().GetMember(enumElement.ToString())
+                .First().GetCustomAttributes(typeof(DisplayAttribute), false).FirstOrDefault()
+                as DisplayAttribute;
+
+            return attribute == null ? enumElement.ToString() : attribute.Name;
         }
     }
 }

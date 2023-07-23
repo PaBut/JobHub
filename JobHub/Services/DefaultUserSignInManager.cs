@@ -5,15 +5,15 @@ using Microsoft.Extensions.Options;
 
 namespace JobHub.Services
 {
-    public class DefaultUserSignInManager : SignInManager<DefaultUser>
+    public class DefaultUserSignInManager : SignInManager<IdentityUser>
     {
-        public DefaultUserSignInManager(UserManager<DefaultUser> userManager,
+        public DefaultUserSignInManager(UserManager<IdentityUser> userManager,
             IHttpContextAccessor contextAccessor, 
-            IUserClaimsPrincipalFactory<DefaultUser> claimsFactory,
+            IUserClaimsPrincipalFactory<IdentityUser> claimsFactory,
             IOptions<IdentityOptions> optionsAccessor,
-            ILogger<SignInManager<DefaultUser>> logger,
+            ILogger<SignInManager<IdentityUser>> logger,
             IAuthenticationSchemeProvider schemes,
-            IUserConfirmation<DefaultUser> confirmation)
+            IUserConfirmation<IdentityUser> confirmation)
         : base(userManager, contextAccessor, claimsFactory, 
               optionsAccessor, logger, schemes, confirmation)
         {

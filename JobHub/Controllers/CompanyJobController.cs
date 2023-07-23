@@ -1,4 +1,5 @@
 ﻿using JobHub.DataAccess;
+using JobHub.DTO;
 using JobHub.Enums;
 using JobHub.Filters;
 using JobHub.Models;
@@ -32,7 +33,7 @@ namespace JobHub.Controllers
         //[Route("add")]
         [HttpGet]
         [TypeFilter(typeof(AddUpdateActionFilter))]
-        [Route("/[controller]/[action]/{id?}")]
+        [Route("{id?}")]
         public async Task<IActionResult> AddUpdateJob(Guid? id = null)
         {
             Job job = new Job();
@@ -51,7 +52,7 @@ namespace JobHub.Controllers
 
         [HttpPost]
         [TypeFilter(typeof(AddUpdateActionFilter))]
-        [Route("/[controller]/[action]/{id?}")]
+        [Route("{id?}")]
         public async Task<IActionResult> AddUpdateJob([FromForm]Job job, [FromRoute]Guid? id = null)
         {
             if (!ModelState.IsValid)
@@ -80,7 +81,7 @@ namespace JobHub.Controllers
             await _unitOfWork.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        [Route("/[controller]/[action]/{id?}")]
+        [Route("{id?}")]
         [HttpDelete]
         public async Task<IActionResult> Delete(Guid? id)
         {
@@ -99,10 +100,43 @@ namespace JobHub.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> SeeApplicants(Guid id)
+        {
+            SeeApplicantsModelView model = new SeeApplicantsModelView { JobId = id };
+            SetApplicationList(model);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("{id}")]
+        public async Task<IActionResult> SeeApplicants(SeeApplicantsModelView model)
+        {
+            JobApplication application = _unitOfWork.JobApplicationRepo.GetFirstOrDefault(ja => ja.Id == model.ApplicationId);
+            application.Status = model.IsApproved ? ApplicationStatus.NextStage : ApplicationStatus.Declined;
+            application.CompanyReply = model.Reply;
+            _unitOfWork.JobApplicationRepo.Update(application);
+            await _unitOfWork.SaveChangesAsync();
+
+            SetApplicationList(model);
+
+            return View(model);
+        }
+
         private string GetUserId()
         {
             var claims = User.FindFirst(ClaimTypes.NameIdentifier);
             return claims.Value;
+        }
+
+        private void SetApplicationList(SeeApplicantsModelView model)
+        {
+            IEnumerable<JobApplication> jobApplications = _unitOfWork.JobApplicationRepo.GetRange(ja => ja.JobId == model.JobId, "Applicant");
+
+            model.ApplicationsList = jobApplications;
         }
     }
 }

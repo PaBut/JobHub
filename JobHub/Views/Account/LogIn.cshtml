@@ -13,7 +13,16 @@
 
     <button class="btn btn-lg btn-success mt-2" type="submit">Log In</button>
 </form>
+<ul>
+    @if (ViewBag.Errors != null)
+    {
+        @foreach (var message in ViewBag.Errors)
+        {
+            <li class="ml-1 text-danger">@message</li>
+        }
+    }
+</ul>
 
 @section Scripts{
-    <partial name="_ValidationPartial.cshtml" />
+<partial name="_ValidationPartial.cshtml" />
 }

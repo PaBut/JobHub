@@ -1,0 +1,64 @@
+﻿@using JobHub
+@model IEnumerable<JobApplication>
+@{
+    int i = 0;
+}
+@foreach (var application in Model)
+{
+    <div class="card text-white mb-3">
+        <div class="card-body">
+            <h4 class="card-title">@application.Job.Name</h4>
+            <p class="text-sm-start card-subtitle text-muted">@application.Job.PostDate.ToShortDateString()</p>
+            <div class="row">
+                <div class="col-4">
+                    <partial name="_PhotoDbPartial" model="application.Employer.Photo" />
+                    <h6 class="d-inline card-subtitle ml-3 mb-2 text-muted">@application.Employer.CompanyName</h6>
+                    <h6 class="card-subtitle">@application.Job.TimeType.Value.GetDisplayValueName()</h6>
+                    <h6 class="d-inline card-subtitle ml-3 mb-2">@application.Status.GetDisplayValueName()</h6>
+                </div>
+                <div class="col-4">
+                    <h6 class="card-subtitle mb-2 text-muted">@string.Join(',', application.Job.Region, application.Job.City)</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">@(application.Job.Wage)$</h6>
+                </div>
+            </div>
+            <p class="card-text">@application.Job.Description.LimitString(200, "...")</p>
+            @if (application.AdditionalMessage != null)
+            {
+                <p class="card-text">Your Message: @application.AdditionalMessage</p>
+            }
+            <a asp-action="GetResume" asp-controller="Resume" asp-route-id="@application.CVId" class="card-link">CV</a>
+            @if (application.Status != JobHub.Enums.ApplicationStatus.Sent)
+            {
+                <a class="card-link reply-hidden" data-bs-toggle="collapse" href=@($"#multiCollapse{i}") role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
+                    <i class="fa-solid fa-arrow-down"></i> See Reply
+                </a>
+                <div class="row">
+                    <div class="col">
+                        <div class="collapse multi-collapse" id=@($"multiCollapse{i++}")>
+                            <p class="card-text">Company's reply: @application.CompanyReply</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
+
+@section Scripts{
+<script>
+     document.addEventListener("click", function(event) {
+          var target = event.target;
+
+          if (target.classList.contains("reply-hidden")) {
+            target.innerHTML = '<i class="fa-solid fa-arrow-up"></i> Hide';
+            target.classList.remove("reply-hidden");
+            target.classList.add("reply-shown");
+          } else if (target.classList.contains("reply-shown")) {
+            target.innerHTML = '<i class="fa-solid fa-arrow-down"></i> See Reply';
+            target.classList.remove("reply-shown");
+            target.classList.add("reply-hidden");
+          }
+    });
+
+</script>
+}

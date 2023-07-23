@@ -1,0 +1,37 @@
+﻿@using JobHub.Areas.Employer.DTO
+@model UpdateAccountModelView
+@{
+    ViewData["Title"] = "Account Update";
+}
+
+<h1>Account Update</h1>
+
+<form method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col">
+            <label asp-for="Photo"></label>
+            <partial name="_PhotoDbPartial" model="@Model.Photo" />
+            <input asp-for="UpdatedPhoto" class="form-control" accept=".jpg, .jpeg, .png">
+            <span asp-validation-for="UpdatedPhoto" class="text-danger"></span>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="CompanyName" class="form-label"></label>
+                @Html.DisplayFor(m => m.CompanyName);
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description" class="form-label"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+    </div>
+
+    <button class="btn btn-lg btn-primary" type="submit">Submit</button>
+</form>

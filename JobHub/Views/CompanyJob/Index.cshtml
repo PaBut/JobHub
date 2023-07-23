@@ -7,7 +7,7 @@
             <h4 class="card-title">@job.Name</h4>
             <h6 class="card-subtitle mb-2 text-muted">@job.Region, @job.City</h6>
             @*<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>*@
-            <a href="#" class="card-link">See applicants</a>
+            <a asp-action="SeeApplicants" asp-route-id="@job.Id" class="card-link">See applicants</a>
             <a asp-action="AddUpdateJob" asp-controller="CompanyJob" asp-route-id="@job.Id" class="card-link">Update</a>
             <a href="javascript:void(0)" onclick="delete('@job.Id')" data-jobid="@job.Id" class="card-link delete-link">Delete</a>
             <a href="#" class="card-link">Found Employee</a>

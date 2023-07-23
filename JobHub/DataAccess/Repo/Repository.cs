@@ -43,6 +43,13 @@ namespace JobHub.DataAccess.Repo
 
         }
 
+        public IEnumerable<T> GetRange(Expression<Func<T, bool>> func, string? includedEntities = null)
+        {
+            IQueryable<T> query = _dbSet.Where(func);
+            query = IncludeEntities(query, includedEntities);
+            return query.AsEnumerable();
+        }
+
         public void Update(T entity)
         {
             _dbSet.Update(entity);

@@ -1,4 +1,5 @@
 ﻿@using JobHub
+@using JobHub.Contracts
 @model Job
 
 <div class="card mb-2">
@@ -15,7 +16,7 @@
                 <label class="card-text">@(Model.Wage)$</label>
                 <br />
                 <i class="fa-solid fa-clock"></i>
-                <label class="card-text">@Model.TimeType.ToString()</label>
+                <label class="card-text">@Model.TimeType.Value.GetDisplayValueName()</label>
             </div>
         </div>
         <p class="card-text">@Model.Description.LimitString(500, "...")</p>

@@ -44,14 +44,18 @@ namespace JobHub.DTO
         public string? JobName { get; set; }
         public List<Job> JobList { get; set; } = new List<Job>();
         public string? Place { get; set; }
+        [Display(Name = "Sort By")]
         public SortOptions? SortOptions { get; set; }
+        [Display(Name = "Minimal Wage")]
         public int? MinimumWage { get; set; }
+        [Display(Name = "Time Type")]
         public Dictionary<JobTimeType, bool> TimeType { get; set; } = new Dictionary<JobTimeType, bool>
         {
             { JobTimeType.Brigada, false },
             { JobTimeType.Fulltime, false },
             { JobTimeType.Parttime, false }
         };
+        [Display(Name = "Education Required:")]
         public Dictionary<EducationType, bool> EducationRequired { get; set; } = new Dictionary<EducationType, bool>
         {
             { EducationType.NoEducation, false },

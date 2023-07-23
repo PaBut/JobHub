@@ -1,9 +1,12 @@
-﻿namespace JobHub.Enums
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace JobHub.Enums
 {
     public enum ApplicationStatus
     {
         Sent,
-        Approved,
+        [Display(Name = "Next Stage")]
+        NextStage,
         Selected,
         Declined
     }
