@@ -5,6 +5,7 @@ using JobHub.Enums;
 using JobHub.Filters;
 using JobHub.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -35,10 +36,18 @@ namespace JobHub.Controllers
         [Route("/")]
         [HttpGet]
         [TypeFilter(typeof(RoleBasedStartAuthorizationFilter))]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             return View();
         }
+        
+        [HttpGet]
+        [Route("/privacy")]
+        public async Task<IActionResult> Privacy()
+        {
+            return View();
+        }
+
         [HttpGet]
         [Route("/jobs")]
         public async Task<ActionResult> JobList(PagingJobModel model)

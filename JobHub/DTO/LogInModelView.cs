@@ -2,7 +2,7 @@
 
 namespace JobHub.DTO
 {
-    public class LogInEmployerModelView
+    public class LogInModelView
     {
         [Required]
         [DataType(DataType.EmailAddress)]

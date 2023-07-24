@@ -9,8 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Claims;
 
-namespace JobHub.Controllers
+namespace JobHub.Areas.Employer.Controllers
 {
+    [Area("Employer")]
     [Route("/[controller]/[action]")]
     [Authorize(Roles = "Employer")]
     public class CompanyJobController : Controller

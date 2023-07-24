@@ -4,6 +4,7 @@ using JobHub.DataAccess;
 using JobHub.Models;
 using JobHub.Services;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
@@ -64,6 +65,16 @@ namespace JobHub
                 });
 
             });
+
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
+            services.Configure<CookieTempDataProviderOptions>(options => options.Cookie.IsEssential = true);
+            services.AddSession(options => options.Cookie.IsEssential = true);
+
             services.AddHttpContextAccessor();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IFileDbUploader, FileDbUploader>();

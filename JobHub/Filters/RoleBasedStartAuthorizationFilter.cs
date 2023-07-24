@@ -1,4 +1,4 @@
-﻿using JobHub.Controllers;
+﻿using JobHub.Areas.Employer.Controllers;
 using JobHub.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -11,7 +11,7 @@ namespace JobHub.Filters
         {
             if (context.HttpContext.User.IsInRole(RolesEnum.Employer.ToString()))
             {
-                context.Result = new RedirectToActionResult(nameof(CompanyJobController.Index), "CompanyJob", null);
+                context.Result = new RedirectToActionResult(nameof(CompanyJobController.Index), "CompanyJob", new {area = RolesEnum.Employer.ToString() });
             }
         }
     }
