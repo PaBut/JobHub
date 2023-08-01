@@ -69,7 +69,7 @@ namespace JobHub.Controllers
                 {
                     result = result.Where(j => j.City.Contains(model.Place) ||
                     j.Region.Contains(model.Place) ||
-                    String.Join(',', j.Region, j.City).Contains(model.Place));
+                    (j.Region + "," + j.City).Contains(model.Place));
                 }
 
                 if (model.MinimumWage != null)

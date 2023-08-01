@@ -5,8 +5,8 @@
 <form method="get">
     <input hidden asp-for="PageIndex" />
     <div class="input-group">
-        <input asp-for="Place" class="form-control" placeholder="City">
         <input asp-for="JobName" class="form-control" placeholder="Job Name">
+        <input asp-for="Place" class="form-control" placeholder="City">
         <div class="input-group-btn">
             <button type="submit" class="btn btn-primary">Search</button>
         </div>
@@ -19,12 +19,8 @@
             @foreach(var entry in Model.TimeType)
             {
                 <li>
-                    @*<input hidden asp-for="TimeType[i].Item1">
-                    <input class="form-check-input" type="checkbox" asp-for="TimeType[i].Item2" />
-                    <label class="form-check-label">@Model.TimeType[i].Item1.ToString()</label>*@
-                    @*@Html.TextBoxFor(e => e.TimeType[entry.Key], new {hidden = "true"})*@
                     @Html.CheckBoxFor(e => e.TimeType[entry.Key], new {@class = "form-check-input"})
-                    <label class="form-check-label">entry.Key.GetDisplayValueName()</label>
+                    <label class="form-check-label">@entry.Key.GetDisplayValueName()</label>
                 </li>
             }
         </ul>
@@ -37,7 +33,6 @@
             @foreach(var entry in Model.EducationRequired)
             {
                 <li>
-                    @*Html.TextBoxFor(e => entry.Key, new {hidden = "true"})*@
                     @Html.CheckBoxFor(e => e.EducationRequired[entry.Key], new {@class = "form-check-input"})
                     <label class="form-check-label">@entry.Key.GetDisplayValueName()</label>
                 </li>
